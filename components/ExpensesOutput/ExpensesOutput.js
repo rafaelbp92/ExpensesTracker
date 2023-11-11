@@ -1,46 +1,19 @@
 import ExpensesSummary from "./ExpensesSummary";
 import ExpensesList from "./ExpensesList";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
-const DUMMY_EXPENSES = [
-  {
-    id: "e1",
-    description: "Rent",
-    amount: 1000,
-    date: new Date(2023, 9, 5),
-  },
-  {
-    id: "e2",
-    description: "Clothes",
-    amount: 99.9,
-    date: new Date(2022, 1, 3),
-  },
-  {
-    id: "e3",
-    description: "Meals",
-    amount: 150.3,
-    date: new Date(2023, 1, 1),
-  },
-  {
-    id: "e4",
-    description: "Movies",
-    amount: 30,
-    date: new Date(2023, 1, 1),
-  },
-  {
-    id: "e5",
-    description: "Book",
-    amount: 45.5,
-    date: new Date(2023, 8, 2),
-  },
-];
+function ExpensesOutput({ expenses, expensesPeriod, fallbackText }) {
+  let content = <Text style={styles.infoText}>{fallbackText}</Text>;
 
-function ExpensesOutput({ expenses, expensesPeriod }) {
+  if (expenses.length > 0) {
+    content = <ExpensesList expenses={expenses} />;
+  }
+
   return (
     <View style={styles.container}>
-      <ExpensesSummary expenses={DUMMY_EXPENSES} periodName={expensesPeriod} />
-      <ExpensesList expenses={DUMMY_EXPENSES} />
+      <ExpensesSummary expenses={expenses} periodName={expensesPeriod} />
+      {content}
     </View>
   );
 }
@@ -48,9 +21,17 @@ function ExpensesOutput({ expenses, expensesPeriod }) {
 export default ExpensesOutput;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 24,
-        backgroundColor: GlobalStyles.colors.primary700
-    }
-})
+  container: {
+    flex: 1,
+    paddingHorizontal: 24,
+    paddingTop: 24,
+    paddingBottom: 0,
+    backgroundColor: GlobalStyles.colors.primary700,
+  },
+  infoText: {
+    color: "white",
+    fontSize: 16,
+    textAlign: "center",
+    marginTop: 32
+  }
+});
