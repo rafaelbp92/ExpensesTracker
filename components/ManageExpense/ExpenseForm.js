@@ -3,11 +3,16 @@ import Input from "./Input";
 import { useState } from "react";
 import CustomButton from "../UI/CustomButton";
 
-function ExpenseForm({ onCancel, onSubmit, submitButtonLabel }) {
+function ExpenseForm({
+  onCancel,
+  onSubmit,
+  submitButtonLabel,
+  selectedExpense,
+}) {
   const [inputValues, setInputValues] = useState({
-    amount: "",
-    date: "",
-    description: "",
+    amount: selectedExpense ? selectedExpense.amount.toString() : "",
+    date: selectedExpense ? selectedExpense.date.toISOString().slice(0, 10) : "",
+    description: selectedExpense ? selectedExpense.description : "",
   });
 
   function inputChangedHandler(inputIdentifier, enteredValue) {
@@ -22,6 +27,15 @@ function ExpenseForm({ onCancel, onSubmit, submitButtonLabel }) {
       date: new Date(inputValues.date),
       description: inputValues.description,
     };
+
+    const amountIsValid = !isNaN(expenseData.amount) && expenseData.amount > 0;
+    const dateIsValid= expenseData.date.toDateString() !== "Invalid Date";
+    const descriptionIsValid = expenseData.description.trim().length > 0;
+
+    if (!amountIsValid || !dateIsValid || !descriptionIsValid) {
+      alert("Please provide valid inputs");
+      return;
+    }
 
     onSubmit(expenseData);
   }
