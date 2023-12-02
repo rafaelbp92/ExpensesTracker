@@ -13,6 +13,6 @@ The app goal is to manage the user expenses.
 
 ## Screenshots
 
-![Start page](screens/all-expenses.png)
+![Start page](screenshots/all-expenses.png)
 
-![Edit Screen](screens/expense-edit.png)
+![Edit Screen](screenshots/expense-edit.png)
