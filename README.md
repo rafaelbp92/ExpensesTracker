@@ -1,4 +1,4 @@
-# Guess My Number - React Native
+# Expense Tracker - React Native
 
 This is an React native application developed to learn some and put in action some concepts like:
 
